@@ -1,45 +1,29 @@
-require maxheap public
-
-struct BooleanItem {
-    sort_by: int
-
-    value: bool
-}
-
-typedef BoolMaxheap = $TMaxheap<BooleanItem>
+require minmaxheap public
 
 [export]
 def main() {
-    let bool_item_arr = [BooleanItem(sort_by = 5, value = true),
-        BooleanItem(sort_by = 3, value = true),
-        BooleanItem(sort_by = 17, value = true),
-        BooleanItem(sort_by = 10, value = true),
-        BooleanItem(sort_by = 84, value = true),
-        BooleanItem(sort_by = 19, value = true),
-        BooleanItem(sort_by = 6, value = true),
-        BooleanItem(sort_by = 22, value = true),
-        BooleanItem(sort_by = 9, value = true)]
-
-    // Initialization is as such, provided you have an array and a key to sort by (as long as your lambda returns an integer.) Preferable to the second option
-    var bool_heap_test_1 = new default<BoolMaxheap>.build_from_arr(bool_item_arr, @(typevalue: BooleanItem) {
-        return typevalue.sort_by
+    var thing = new default<$TMinMaxheap<int>>.build_from_arr([5,
+        65,
+        80,
+        25,
+        37,
+        8,
+        15,
+        57,
+        36,
+        45,
+        59,
+        20,
+        14,
+        32,
+        18],
+        @(typevalue: int) {
+        return typevalue
     })
-
-    // Is the same as above (with inferior performance)
-    var bool_heap_test_2 = new default<BoolMaxheap>
-    bool_heap_test_2.define_provider(@(typevalue: BooleanItem) {
-        return typevalue.sort_by
-    })
-
-    bool_heap_test_2.insert(BooleanItem(sort_by = 5, value = true))
-    bool_heap_test_2.insert(BooleanItem(sort_by = 3, value = true))
-    bool_heap_test_2.insert(BooleanItem(sort_by = 17, value = true))
-    bool_heap_test_2.insert(BooleanItem(sort_by = 10, value = true))
-    bool_heap_test_2.insert(BooleanItem(sort_by = 84, value = true))
-    bool_heap_test_2.insert(BooleanItem(sort_by = 19, value = true))
-    bool_heap_test_2.insert(BooleanItem(sort_by = 6, value = true))
-    bool_heap_test_2.insert(BooleanItem(sort_by = 22, value = true))
-    bool_heap_test_2.insert(BooleanItem(sort_by = 9, value = true))
-    bool_heap_test_2.print()
-
+    
+    thing.display()
+    print("AFter removing min and max:\n")
+    thing.remove_min()
+    thing.remove_max()
+    thing.display()
 }
